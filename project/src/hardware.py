@@ -52,4 +52,4 @@ def mostrar_recursos_hardware(cpu, ram, size=50):
     ram_carga = ">" * int(ram_p * size) + "-" * (size - int(ram_p * size))
 
     print(f"\rUSO DE LA CPU: |{cpu_carga}| {cpu:.2f}%", end="")
-    print(f"USO DE LA RAM: |{ram_carga}| {ram:.2f}%", end="\r")
+    print(f"\tUSO DE LA RAM: |{ram_carga}| {ram:.2f}%", end="\r")

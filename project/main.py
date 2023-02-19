@@ -125,7 +125,8 @@ class Main:
                     
         elif i == "3":
             Utils.clear()
-            print("Saliendo de " + titulo)
+            print("\t\tSaliendo de ")
+            print(titulo)
             Utils.wait(3)
             quit()
 
@@ -134,18 +135,18 @@ def logear():
     print(titulo)
     print("EJEMPLO ===> \"VGNO2C3Q3N9ZXH3G\"")
     i = input("Indentificador API-KEY de la cuenta: ")
-    print(i)
-    time.sleep(5)
+    time.sleep(1)
     return Utils.realizar_peticion(method="get", url=f"https://api.thingspeak.com/channels.json?api_key={i}"), i
         
 if __name__ == "__main__":
     r,i = logear()
 
-    # COMPROBAMOS SI LA CUENTA EXISTE checkeando la API_KEY del usuario
-    if Utils.check_cs(r.status_code):
-        data = r.json()
-        mc = Main(i,data)
-        mc.run()
-    else:
-        print("La cuenta no existe o esta mal configurada.")
-        logear()
+    while r.status_code is not 200:
+        Utils.clear()
+        print(titulo)
+        print("La cuenta con la API-KEY introducida no existe.\nComprueba que las has introducido bien.")
+        time.sleep(5)
+        r,i = logear()
+    data = r.json()
+    mc = Main(i,data)
+    mc.run()
