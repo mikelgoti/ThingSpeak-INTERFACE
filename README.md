@@ -4,9 +4,9 @@
 ## PREVIEW
 Programa para interactuar desde la linea de comandos con tu cuenta de **ThingSpeak.** 
 
-![preview1](project/resources/imgs/preview1)
+![preview1](project/resources/imgs/preview1.png)
 
-![preview1](project/resources/imgs/preview2)
+![preview1](project/resources/imgs/preview2.png)
 
 
 ## **DESCARGAR**
