@@ -147,12 +147,12 @@ class Canal:
     
     # OBTENER INFORMACION DE LOS CAMPOS DEL CANAL
     def obtener_datos_subidos(c_id, u_api_key):
-        size_input = input("Introduce la cantidad de subidas de informacion que desees.(Por defecto son 100 "
+        """size_input = input("Introduce la cantidad de subidas de informacion que desees.(Por defecto son 100 "
                             "entradas del historial): ")
-        s = 100 if size_input is "" else size_input
+        s = 100 if size_input is "" else size_input"""
 
         r = Utils.realizar_peticion(method="get",
-                            url=f"https://api.thingspeak.com/channels/{c_id}/feeds.json?api_key={u_api_key}&results={s}")
+                            url=f"https://api.thingspeak.com/channels/{c_id}/feeds.json?api_key={u_api_key}&results=100")
         if Utils.check_cs(r.status_code):
             data = r.json()
             return data

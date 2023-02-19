@@ -193,14 +193,14 @@ class Utils:
                     </html>''' % data_json)
         print("Pagina web creada")
 
-        PORT = 8000
+        """PORT = 8000
         Handler = http.server.SimpleHTTPRequestHandler
 
         with socketserver.TCPServer(("", PORT), Handler) as httpd:
             print(f"servidor local en http://localhost:8001/index.html")
-            httpd.serve_forever()
+            httpd.serve_forever()"""
         
-        Utils.display_pagina_web(f"http://localhost:8001/index.html")
+        Utils.display_pagina_web("file:///C:/Users/mikel/Desktop/ThingSpeak-Interface/index.html")
 
 
 def introducir_fila_excel(ws, fila, datos):

@@ -54,6 +54,13 @@ class Main:
         print("2. Parte")
         Utils.wait(1)
         Utils.ejercicio_2()
+        Utils.clear()
+        print("Terminando script.")
+        Utils.clear()
+        print("\t\tSaliendo de ")
+        print(titulo)
+        Utils.wait(3)
+        quit()
 
 
     def run(self):
