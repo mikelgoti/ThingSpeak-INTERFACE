@@ -3,4 +3,4 @@
 ![Esquema](imgs/esquema_final.png)
 
 ### PAQUETES INSTALADOS
-![Entorno Virtual CONDA](imgs/paquetes_instalados.png)
+![Entorno Virtual CONDA](project/resources/imgs/paquetes_instalados.png)
