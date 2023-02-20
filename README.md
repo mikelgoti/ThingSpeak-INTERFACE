@@ -1,8 +1,8 @@
 # ThingSpeak Command Line Interface
+Programa para interactuar desde la linea de comandos con tu cuenta de **ThingSpeak.** 
 ![Esquema](project/resources/imgs/esquema_final.png)
 
 ## PREVIEW
-Programa para interactuar desde la linea de comandos con tu cuenta de **ThingSpeak.** 
 
 ![preview1](project/resources/imgs/preview1.png)
 
@@ -13,8 +13,9 @@ Programa para interactuar desde la linea de comandos con tu cuenta de **ThingSpe
 
     git clone https://github.com/mikelgoti/ThingSpeak-INTERFACE.git
 
-## **FORMA DE USO** 
+## **COMO DESPLEGAR EL PROGRAMA** 
 
+### Una vez descargado para instalar todas las dependencias hay dos opciones de hacerlo. La primera es mediante **docker** o **manualmente.**
 ### **USANDO DOCKER**
 
 Dirígete hasta el directorio donde hayas descargado el programa. Una vez en el directorio abre una terminal.
