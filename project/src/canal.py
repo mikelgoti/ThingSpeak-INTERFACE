@@ -54,6 +54,7 @@ class Canal:
         return cadena
     
     def borrar(self):
+        Utils.clear()
         i = Utils.teclado_infinito("1. Borrar CAMPOS del canal.\n"
                                 "2. Borrar CANAL y todos su CONTENIDO.", None, "1", "2")
         if i == "1":
@@ -73,6 +74,7 @@ class Canal:
             self.borrar_canal()
 
     def borrar_canal(self):
+        Utils.clear()
         r = Utils.realizar_peticion(method="delete", url=f"https://api.thingspeak.com/channels/{self.id}.json",
                             json={"api_key": self.usuario_api_key})
         if Utils.check_cs(r.status_code):
@@ -84,6 +86,7 @@ class Canal:
     
     @staticmethod
     def borrar_datos(id, u_a_k):
+        Utils.clear()
         r = Utils.realizar_peticion(method="delete",
                                 url=f"https://api.thingspeak.com/channels/{id}/feeds.json",
                                 json={"api_key": u_a_k})
@@ -94,6 +97,7 @@ class Canal:
     
     # ACTUALIZAR CAMPOS O CREAR NUEVOS CAMPOS
     def actualizar_campos_canal(self):
+        Utils.clear()
         print(f"\nCAMPOS DEL CANAL {self.index}")
         campos_canal = self.obtener_campos_canal()
         print(f"{len(campos_canal)}/8 campos existentes.\n")
@@ -146,16 +150,22 @@ class Canal:
             return lista_campos
     
     # OBTENER INFORMACION DE LOS CAMPOS DEL CANAL
-    def obtener_datos_subidos(c_id, u_api_key):
-        """size_input = input("Introduce la cantidad de subidas de informacion que desees.(Por defecto son 100 "
+    @staticmethod
+    def obtener_datos_subidos(c_id, u_api_key, flag):
+        if flag is 0:
+            r = Utils.realizar_peticion(method="get",
+                                url=f"https://api.thingspeak.com/channels/{c_id}/feeds.json?api_key={u_api_key}&results=100")
+            if Utils.check_cs(r.status_code):
+                data = r.json()
+        elif flag is 1:
+            size_input = input("Introduce la cantidad de subidas de informacion que desees.(Por defecto son 100 "
                             "entradas del historial): ")
-        s = 100 if size_input is "" else size_input"""
-
-        r = Utils.realizar_peticion(method="get",
-                            url=f"https://api.thingspeak.com/channels/{c_id}/feeds.json?api_key={u_api_key}&results=100")
-        if Utils.check_cs(r.status_code):
-            data = r.json()
-            return data
+            s = 100 if size_input is "" else size_input
+            r = Utils.realizar_peticion(method="get",
+                                url=f"https://api.thingspeak.com/channels/{c_id}/feeds.json?api_key={u_api_key}&results={s}")
+            if Utils.check_cs(r.status_code):
+                data = r.json()
+        return data
     
     def opciones_exportar(self):
         Utils.clear()
@@ -222,16 +232,12 @@ class Canal:
 
         df = pd.read_excel('backup.xlsx')
 
-        # Rename the columns to 'CPU Usage' and 'RAM Usage'
         df = df.rename(columns={"USO_CPU": "CPU Usage", "USO_RAM": "RAM Usage", "FECHA": "Date"})
 
-        # Format the Date column to the correct format
         df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
-        # Convert the DataFrame to a JSON string and store it in a variable
         data_json = df.to_json(orient='values')
 
-        # Create the HTML file
         with open('usage_charts.html', 'w') as f:
             f.write('''<html>
             <head>

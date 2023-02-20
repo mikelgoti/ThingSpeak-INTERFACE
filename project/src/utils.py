@@ -1,8 +1,7 @@
 from src import *
 import src
 import pandas as pd
-import http.server
-import socketserver
+import subprocess
 
 class Utils:
 
@@ -35,10 +34,15 @@ class Utils:
         os.system("cls" if os.name == "nt" else "clear")
 
     # METODO PARA COMPROBAR CODIGOS DE ESTADO
+    # https://es.mathworks.com/help/thingspeak/error-codes.html
     @staticmethod
     def check_cs(sc):
         if sc is 200:
             return True
+        elif sc >= 400 or sc <=503:
+            print("Error "+sc+" a la hora de realizar la peticion.")
+            Utils.wait(2)
+            quit()
 
 
     # METODO PARA PARSEAR UN JSON y obtener los datos deseados
@@ -49,13 +53,29 @@ class Utils:
             return json_data
 
     # DESPLIEGA LA URL PASADA COMO PARAMETRO EN EL FIREFOX
-    @staticmethod
     def display_pagina_web(url):
-        options = Options()
-        options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
-        driver = webdriver.Firefox(options=options)
-        driver.get(url)
-    
+        try:
+            browser = webdriver.Firefox()
+            browser.get(url)
+            return
+        except:
+            pass
+
+        try:
+            browser = webdriver.Chrome()
+            browser.get(url)
+            return
+        except:
+            pass
+            
+        try:
+            browser = webdriver.Edge()
+            browser.get(url)
+            return
+        except:
+            pass
+
+            
     # METODO PARA REALIZAR PETICIONES HTTP
     @staticmethod
     def realizar_peticion(**kwargs):
@@ -142,16 +162,21 @@ class Utils:
     
     @staticmethod
     def ejercicio_2():
+        
         df = pd.read_excel('backup.xlsx')
         df = df.rename(columns={"USO_CPU": "CPU Usage", "USO_RAM": "RAM Usage", "FECHA": "Date"})
         df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%dT%H:%M:%SZ')
         data_json = df.to_json(orient='values')
+        
         print("Informacion cargada desde .xlsx")
         Utils.wait(2)
         print("Generando codigo html")
         Utils.wait(2)
 
-        with open('index.html', 'w') as f:
+        # OBTENEMOS EL DIRECTORIO ACTUAL Y UNIMOS EL NOMBRE DEL ARCHIVO
+        path = os.path.join(os.getcwd(), 'index.html')
+
+        with open(path, 'w') as f:
             f.write('''<html>
                     <head>
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -192,15 +217,7 @@ class Utils:
                     </body>
                     </html>''' % data_json)
         print("Pagina web creada")
-
-        """PORT = 8000
-        Handler = http.server.SimpleHTTPRequestHandler
-
-        with socketserver.TCPServer(("", PORT), Handler) as httpd:
-            print(f"servidor local en http://localhost:8001/index.html")
-            httpd.serve_forever()"""
-        
-        Utils.display_pagina_web("file:///C:/Users/mikel/Desktop/ThingSpeak-Interface/index.html")
+        Utils.display_pagina_web(f'file://{path}')
 
 
 def introducir_fila_excel(ws, fila, datos):

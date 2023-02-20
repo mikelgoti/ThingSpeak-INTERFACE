@@ -1,4 +1,4 @@
-from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import WebDriverException
 from selenium import webdriver
 import requests
 import time
