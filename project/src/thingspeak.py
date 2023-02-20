@@ -30,7 +30,7 @@ class ThingSpeak:
         if total_canales_existentes is 0:
             return  Utils.teclado_infinito("No hay canales creados. Introduce 0 para crear un canal.",None,"0")
         else:
-            print("f{total_canales_existentes}/4 CANALES CREADOS\n\n"
+            print(f"{total_canales_existentes}/4 CANALES CREADOS\n\n"
             "\tINFORMACION DE LOS CANALES\n"
                     "\t--------------------------\n\n"
             f"Nº\t\tID\t\t\tNOMBRE\n"
@@ -49,7 +49,7 @@ class ThingSpeak:
             if total_canales_existentes == 4:
                 return self.mostrar_index_canales(False,total_canales_existentes)
             else:
-                print("[0]_____Crear canal.")
+                print("[0]............Crear canal.")
                 return self.mostrar_index_canales(True, total_canales_existentes)
             
                 
@@ -60,9 +60,9 @@ class ThingSpeak:
             c_list += "[" + str(index) + "]"
             index += 1
         if flag is False:
-            return Utils.teclado_infinito(f"{str(c_list)}\t\tPara acceder a un canal introduce su Nº correspondiente)", None, "1", "2", "3", "4")
+            return Utils.teclado_infinito("{:<15}Para acceder a un canal introduce su Nº correspondiente.".format(str(c_list)), None, "1", "2", "3", "4")
         elif flag is True:
-            return Utils.teclado_infinito(f"{str(c_list)}\t\tPara acceder a un canal introduce su Nº correspondiente)", None, "0","1", "2", "3", "4")
+            return Utils.teclado_infinito("{:<15}Para acceder a un canal introduce su Nº correspondiente.".format(str(c_list)), None, "0", "1", "2", "3", "4")
     
     def crear_canal(self, n, data, c1, c2):
         Utils.clear()

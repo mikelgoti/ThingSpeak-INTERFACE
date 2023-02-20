@@ -109,7 +109,7 @@ class Utils:
             ite = 1
             introducir_fila_excel(ws, ite, ["FECHA", "USO_CPU", "USO_RAM"])
             ite += 1
-            for data in src.canal.Canal.obtener_datos_subidos(c_id, u_api_key)["feeds"]:
+            for data in src.canal.Canal.obtener_datos_subidos(c_id, u_api_key, 0)["feeds"]:
                 introducir_fila_excel(ws, ite, [data["created_at"], data["field1"], data["field2"]])
                 ite += 1
             wb.save(file)
@@ -211,4 +211,5 @@ def introducir_fila_excel(ws, fila, datos):
             cont += 1
     else:
         ws.cell(row=fila, column=1, value=datos)
+
 

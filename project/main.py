@@ -74,17 +74,20 @@ class Main:
                 c.actualizar_campos_canal()
                 self.run()
             elif opcion_canal == "3":
-                print("NO esta implementado porque es depende lo que quieras subir")
                 Utils.wait(2)
                 self.run()
-                """i = input("Introduce la frecuencia con la que quieres subir los datos.")
-                frec = i if i is not None else None"""
-                #hardware.subir_datos_practica()
+                i = input("Introduce la frecuencia con la que quieres subir los datos.")
+                frec = i if i is not None else None
+                subir_datos_practica()
+                self.run()
             elif opcion_canal == "4":
-                print("NO esta implementado porque es depende lo que quieras subir")
-                Utils.wait(2)
+                c_id = c.id
+                u_a_p = self.usuario_api_key
+                print("Obteniendo datos")
+                for row in c.obtener_datos_subidos(c_id, u_a_p, 1)["feeds"]:
+                    print([row["created_at"], row["field1"], row["field2"]])
+                Utils.teclado_infinito("0 para volver", None, "0")
                 self.run()
-                #c.obtener_datos_subidos()
             elif opcion_canal == "5":
                 c.opciones_exportar()
             elif opcion_canal == "6":
@@ -99,7 +102,7 @@ class Main:
 
         # MENU PRINCIPAL DEL USUARIO
         Utils.clear()
-        i = Utils.teclado_infinito(titulo+"\t--------------------------\n\t|0º     Realizar practica|\n\t--------------------------\n\n" 
+        i = Utils.teclado_infinito(titulo+"\t0º   ->   Realizar practica\n\t---------------------------\n\n" 
                 + f"BIENVENIDO! USUARIO {self.usuario_api_key}\n\n\n"
                 "\t__MENU PRINCIPAL__\n" \
                 "\t------------------\n\n" \
@@ -109,7 +112,6 @@ class Main:
         if i == "0":
             self.realizar_practica()
         elif i == "1" or i == "2":
-            #ts = ThingSpeak(self.usuario_api_key, "nombrecuenta", "correocuenta")
             if i == "1":
                 Utils.clear()
                 self.ts.__str__()

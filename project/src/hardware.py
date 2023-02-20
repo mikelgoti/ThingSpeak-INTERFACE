@@ -2,6 +2,10 @@ from src import Utils
 import psutil
 
 
+from src import Utils
+import psutil
+
+
 """# SOLAMENTE ESTA PROGRAMADO PARA OBTENER LA INFORMACION DE LA CPU Y LA RAM
 def obtener_recursos_hardware(canal_api_key, lista_campos, menu_canal, frecuencia):
     if len(lista_campos) < 2:
